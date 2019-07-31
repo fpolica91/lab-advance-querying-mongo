@@ -97,11 +97,13 @@ db.companies.find({$and:[{"category_code":"web"}, {"number_of_employees":{$gte:4
 
 ### 18. All the companies which their acquisition amount is more than 10.000.000, and currency are 'EUR'.
 
+db.companies.find({$and:[{"acquisition.price_amount":{$gte:10000000}}, {"acquisition.price_currency_code":"EUR"}]}, {"name":1, "acquisition.price_amount":1, "acquisition.price_currency_code":1})
 <!-- Your Code Goes Here -->
 
 ### 19. All the companies that have been acquired on the first trimester of the year. Limit the search to 10 companies, and retrieve only their `name` and `acquisition` fields.
 
 <!-- Your Code Goes Here -->
+> db.companies.find({"acquisition.acquired_month":{$lte:3}},{"name":1, "acquisition":1}).limit(10)
 
 ### 20. All the companies that have been founded between 2000 and 2010, but have not been acquired before 2011.
 
