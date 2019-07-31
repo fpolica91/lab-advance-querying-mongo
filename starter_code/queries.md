@@ -40,13 +40,15 @@ db.companies.find({$and:[{"number_of_employees":{$lte:1000}},{"founded_year":{$l
 
 ### 8. All the companies that have at least 100 employees but less than 1000. Retrieve only the `name` and `number of employees` fields.
 
-<!-- Your Code Goes Here -->
+db.companies.find({$and:[{"number_of_employees":{$gte:100}}, {"number_of_employees":{$lt:1000}}]},{"name":1,"number_of_employees":1})
 
 ### 9. Order all the companies by their IPO price descendently.
 
+db.companies.find({},{"ipo.valuation_amount":1}).sort({})
 <!-- Your Code Goes Here -->
 
 ### 10. Retrieve the 10 companies with more employees, order by the `number of employees`
+db.companies.find({},{"number_of_employees":1}).sort({"number_of_employees":-1}).limit(10)
 
 <!-- Your Code Goes Here -->
 
