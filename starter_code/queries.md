@@ -80,15 +80,18 @@ db.companies.find({"acquisition.acquired_year":{$gte:2005}}, {"name":1, "acquisi
 
 ### 15. Order the companies by their `founded year`, retrieving only their `name` and `founded year`.
 
-db.companies.find({$and [{}, {"name":1, "founded_year":1}} {"founded_year":{$ne:null}} ]).sort({"founded_year":1}).limit(30)
+db.companies.find({"founded_year":{$ne:null}}, {"name":1, "founded_year":1}).sort({"founded_year":-1})
+
 
 <!-- Your Code Goes Here -->
 
 ### 16. All the companies that have been founded on the first seven days of the month, including the seventh. Sort them by their `aquisition price` descendently. Limit the search to 10 documents.
 
+ db.companies.find({"founded_day":{$lte:7}},{"name":1,"founded_day":1}).sort({"acquisition.price_amount":-1}).limit(10)
 <!-- Your Code Goes Here -->
 
 ### 17. All the companies on the 'web' `category` that have more than 4000 employees. Sort them by the amount of employees in ascendant order.
+db.companies.find({$and:[{"category_code":"web"}, {"number_of_employees":{$gte:4000}}]},{"name":1,"number_of_employees":1}).sort({"number_of_employees":1})
 
 <!-- Your Code Goes Here -->
 
