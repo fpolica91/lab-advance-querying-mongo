@@ -54,21 +54,33 @@ db.companies.find({},{"number_of_employees":1}).sort({"number_of_employees":-1})
 
 ### 11. All the companies founded on the second semester of the year. Limit your search to 1000 companies.
 
+db.companies.find({"founded_month" :{$gte:5}},{"name":1,"founded_month":1}).limit(1000)
+
+
+
 <!-- Your Code Goes Here -->
 
 ### 12. All the companies that have been 'deadpooled' after the third year.
-
+<!-- deadpools_year = 3 -->
+db.companies.find({"deadpooled_year":3},{"deadpooled_year":1, "name":1})
+<!-- calculates and substracts -->
+db.companies.find({$where: function(){ return (this.deadpooled_year >= this.founded_year + 3) && (this.founded_year != null) } },{"name":1} )
 <!-- Your Code Goes Here -->
 
 ### 13. All the companies founded before 2000 that have and acquisition amount of more than 10.000.000
+db.companies.find({$and:[{"founded_year": {$lte: 2000}}, {"acquisitions.price_amount":{$gte: 10000000}}]},{"name":1})
+
 
 <!-- Your Code Goes Here -->
 
 ### 14. All the companies that have been acquired after 2015, order by the acquisition amount, and retrieve only their `name` and `acquisiton` field.
 
 <!-- Your Code Goes Here -->
+db.companies.find({"acquisition.acquired_year":{$gte:2005}}, {"name":1, "acquisition.acquired_year":1,"acquisition.price_amount":1}).sort({"acquisition.price_amount":-1})
 
 ### 15. Order the companies by their `founded year`, retrieving only their `name` and `founded year`.
+
+db.companies.find({$and [{}, {"name":1, "founded_year":1}} {"founded_year":{$ne:null}} ]).sort({"founded_year":1}).limit(30)
 
 <!-- Your Code Goes Here -->
 
